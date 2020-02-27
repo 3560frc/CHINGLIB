@@ -26,9 +26,13 @@ public class Shooter extends SubsystemBase {
     shooterSlave.follow(shooterMain);
   }
 
-  public void shootBall(double rSpeed, double lSpeed, double iSpeed){
-    shooterMain.set(iSpeed);
-    shooterLeft.set(lSpeed);
-    shooterRight.set(rSpeed);
+  public void setIntake(double speed){
+    shooterMain.set(speed);
   }
+
+  public void setFlywheel(double speed){
+    shooterLeft.set(speed);
+    shooterRight.set(speed);
+  }
+
 }

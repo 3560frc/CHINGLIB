@@ -17,4 +17,7 @@ package frc.robot;
  */
 public final class Constants {
 
+    public static int portRightFront = 1, portRightBack = 2, portLeftFront = 3, portLeftBack = 4;
+
+
 }
