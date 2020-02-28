@@ -10,32 +10,12 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
-  WPI_TalonSRX liftMain;
-  WPI_TalonSRX liftBlackMan;
-
-  WPI_TalonSRX intake;
-
-  WPI_TalonSRX shooterRight;
-  WPI_TalonSRX shooterLeft;
-  WPI_TalonSRX shooterIntake;
-  WPI_TalonSRX shooterIntakeBlackMan;
-
-  Drive drive = new Drive();
+  Chassis chassis;
 
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-
-    liftMain = new WPI_TalonSRX(5);
-    liftBlackMan = new WPI_TalonSRX(6);
-
-    intake = new WPI_TalonSRX(7);
-
-    shooterRight = new WPI_TalonSRX(8);
-    shooterLeft = new WPI_TalonSRX(9);
-    shooterIntake = new WPI_TalonSRX(10);
-    shooterIntakeBlackMan = new WPI_TalonSRX(11);
-
+    chassis = new Chassis();
   }
 
   @Override
@@ -72,7 +52,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    drive.tankDrive();
+    // Add some stuff
   }
 
   @Override
