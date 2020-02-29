@@ -33,6 +33,12 @@ public class Chassis extends SubsystemBase {
     rightBack = new WPI_VictorSPX(Constants.portRightBack);
     leftFront = new WPI_VictorSPX(Constants.portLeftFront);
     leftBack = new WPI_VictorSPX(Constants.portLeftBack);
+
+    rightFront.configFactoryDefault();
+    rightBack.configFactoryDefault();
+    leftFront.configFactoryDefault();
+    leftBack.configFactoryDefault();
+
     rightBack.setInverted(true);
     leftBack.setInverted(true);
 
@@ -52,8 +58,10 @@ public class Chassis extends SubsystemBase {
    **/
   public void driveBoth(double speed, double distance){
     double currentTicks = (getLeft() + getRight()) / 2;
-    while (Math.abs((distance * Constants.ticksPerInch)) > currentTicks)
+    while (Math.abs((distance * Constants.ticksPerInch) - currentTicks) < 1){
       drive.tankDrive(speed, speed);
+      currentTicks = (getLeft() + getRight()) / 2;
+    }
   }
 
   /**
@@ -103,6 +111,7 @@ public class Chassis extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Left Encoder", getLeft());
-    SmartDashboard.putNumber("Right Encoder", getRight());
+	SmartDashboard.putNumber("Right Encoder", getRight());
+	SmartDashboard.putNumber("Distance", getDistance());
   }
 }
