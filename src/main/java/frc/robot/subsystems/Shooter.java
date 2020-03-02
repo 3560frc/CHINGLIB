@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +21,7 @@ public class Shooter extends SubsystemBase {
   private final WPI_TalonSRX shooterRight, shooterLeft, shooterMain, shooterSlave;
   private final DifferentialDrive shooter;
   private final Encoder rightEncoder, leftEncoder;
-  private final Compressor compressor;
+
   private final Solenoid lift;
 
   public Shooter() {
@@ -40,7 +41,6 @@ public class Shooter extends SubsystemBase {
     rightEncoder = new Encoder(Constants.shooterRightEncoderA, Constants.shooterRightEncoderB);
     leftEncoder = new Encoder(Constants.shooterLeftEncoderA, Constants.shooterLeftEncoderB);
 
-    compressor = new Compressor();
     lift = new Solenoid(Constants.solenoidLift);
   }
 
@@ -70,6 +70,9 @@ public class Shooter extends SubsystemBase {
     return leftEncoder.getDistance();
   }
 
+  /**
+   * @param speed PWM Speed value to set the flywheel
+   */
   public void setFlywheel(double speed){
     shooter.tankDrive(speed, speed);
   }
@@ -88,6 +91,19 @@ public class Shooter extends SubsystemBase {
     }
     dropShooter();
   }
+
+  /**
+   * @param controller Xbox Controller Object
+   */
+  public void teleopShoot(XboxController controller){
+    if (controller.getBumperPressed(Hand.kRight)) liftShooter();
+    if (controller.getBumperPressed(Hand.kLeft)) dropShooter();
+    while (controller.getAButtonPressed()){
+      setIntake(1);
+      setFlywheel(1);
+    }
+  }
+
 
   @Override
   public void periodic(){

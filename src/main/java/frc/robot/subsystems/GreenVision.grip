@@ -114,9 +114,9 @@
   </settings>
   <codeGenerationSettings>
     <language>Java</language>
-    <className>GripPipeline</className>
+    <className>VisionGRIP</className>
     <implementWpilibPipeline>false</implementWpilibPipeline>
-    <saveDir>C:\Users\3560-FRC\Downloads</saveDir>
+    <saveDir>C:\Users\3560-FRC\Documents\Robotics\CHINGLIB\src\main\java\frc\robot\subsystems</saveDir>
     <packageName></packageName>
     <moduleName>grip</moduleName>
   </codeGenerationSettings>
