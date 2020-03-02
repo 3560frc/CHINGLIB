@@ -11,11 +11,13 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   Chassis chassis;
+  Intake intake;
 
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     chassis = new Chassis();
+    intake = new Intake();
   }
 
   @Override
