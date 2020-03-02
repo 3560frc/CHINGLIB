@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.*;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
@@ -25,6 +26,14 @@ public class Intake extends SubsystemBase {
    */
   public void setSpeed(double speed){
     intakeMotor.set(speed);
+  }
+
+  /**
+   * @param controller Xbox Controller Object
+   */
+  public void controlIntake(XboxController controller){
+    if (controller.getStartButtonPressed()) setSpeed(0.75);
+    if (controller.getBackButtonPressed()) stop();
   }
 
   public void stop(){
