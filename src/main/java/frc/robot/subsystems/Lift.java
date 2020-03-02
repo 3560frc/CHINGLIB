@@ -33,6 +33,7 @@ public class Lift extends SubsystemBase {
   public void pull(double time) {
     winchMotor.set(1);
     Timer.delay(time);
+    winchMotor.set(0);
   }
   @Override
   public void periodic() {
