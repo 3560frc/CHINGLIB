@@ -17,6 +17,8 @@ public class Lift extends SubsystemBase {
    */
   private final WPI_VictorSPX winchMotor;
   private final Solenoid lifty;
+  private final Button xButton;
+
   public Lift() {
     winchMotor = new WPI_VictorSPX(1); //FIX PORTS                                     
     lifty = new Solenoid(2); 
@@ -26,15 +28,65 @@ public class Lift extends SubsystemBase {
     lifty.set(true);
   }
 
+  public void liftControl(XboxController controller) {
+    //CHANGE BUTTON BINDINGS
+    if(controller.getBButton()) {
+
+      extend();
+      
+    }
+    if(controller.getAButton()) {
+
+      retract();
+
+      
+    }
+    if(controller.getXButton()) {
+
+      extendWinch();
+      
+    }
+    else if(controller.getYButton()) {
+
+      retractWinch();
+
+    }
+    else if(!(controller.getYButton()) && !(controller.getXButton())) {
+
+      stopWinch();
+
+    }
+
+  }
+
   public void retract() {
     lifty.set(false);
   }
 
-  public void pull(double time) {
+  public void timedPull(double time) {
     winchMotor.set(1);
     Timer.delay(time);
     winchMotor.set(0);
   }
+
+  public void extendWinch() {
+
+    winchMotor.set(1);
+
+  }
+
+  public void stopWinch() {
+
+    winchMotor.set(0);
+    
+  }
+
+  public void retractWinch() {
+
+    winchMotor.set(-1);
+    
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
