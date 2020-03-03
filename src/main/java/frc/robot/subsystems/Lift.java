@@ -23,10 +23,6 @@ public class Lift extends SubsystemBase {
     lifty = new Solenoid(2); 
   }
 
-  public void extend() {
-    lifty.set(true);
-  }
-
   public void liftControl(XboxController controller) {
     //CHANGE BUTTON BINDINGS
     if(controller.getBButton()) {
@@ -56,6 +52,10 @@ public class Lift extends SubsystemBase {
 
     }
 
+  }
+
+  public void extend() {
+    lifty.set(true);
   }
 
   public void retract() {
