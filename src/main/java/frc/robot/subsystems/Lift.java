@@ -30,23 +30,17 @@ public class Lift extends SubsystemBase {
       extend();
       
     }
-    if(controller.getAButton()) {
+    else if(!(controller.getBButton())) {
 
       retract();
-
       
     }
     if(controller.getXButton()) {
 
-      extendWinch();
+      retractWinch();
       
     }
-    else if(controller.getYButton()) {
-
-      retractWinch();
-
-    }
-    else if(!(controller.getYButton()) && !(controller.getXButton())) {
+    else if(!(controller.getBButton()) && !(controller.getXButton())) {
 
       stopWinch();
 
@@ -68,7 +62,7 @@ public class Lift extends SubsystemBase {
     winchMotor.set(0);
   }
 
-  public void extendWinch() {
+  public void retractWinch() {
 
     winchMotor.set(1);
 
@@ -77,12 +71,6 @@ public class Lift extends SubsystemBase {
   public void stopWinch() {
 
     winchMotor.set(0);
-    
-  }
-
-  public void retractWinch() {
-
-    winchMotor.set(-1);
     
   }
 
