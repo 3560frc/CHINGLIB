@@ -17,7 +17,6 @@ public class Lift extends SubsystemBase {
    */
   private final WPI_VictorSPX winchMotor;
   private final Solenoid lifty;
-  private final Button xButton;
 
   public Lift() {
     winchMotor = new WPI_VictorSPX(1); //FIX PORTS                                     
