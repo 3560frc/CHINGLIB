@@ -41,7 +41,7 @@ public class VisionGRIP implements VisionPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	@Override	public MatOfKeyPoint process(Mat source0) {
+	@Override	public void process(Mat source0) {
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = source0;
 		double[] hsvThresholdHue = {40.46762589928058, 75.56313993174064};
