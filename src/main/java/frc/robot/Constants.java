@@ -22,4 +22,5 @@ public final class Constants {
     public static int portShooterRight = 5, portShooterLeft = 6, portShooterMain = 7, portShooterSlave = 8;
     public static int shooterRightEncoderA = 5, shooterRightEncoderB = 6, shooterLeftEncoderA = 7, shooterLeftEncoderB = 8;
     public static int solenoidLift = 1, portIntakeMotor = 9, xboxPort = 1;
+    public static double optimalSize = 3;
 }

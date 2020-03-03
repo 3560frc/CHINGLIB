@@ -27,7 +27,7 @@ public class ShootBall extends CommandBase {
   CvSink sink;
   CvSource outputStream;
   Mat base = new Mat(), output = new Mat();
-  Boolean isComplete = false;
+  Boolean isComplete[] = {false, false};
   NetworkTable nt;
 
   public ShootBall() {
@@ -51,16 +51,27 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    while (!isComplete){
+    while (!isComplete[0] || !isComplete[1]){
       if (sink.grabFrame(base) == 0) continue;
       grip.process(base);
       NetworkTable table = NetworkTableInstance.getDefault().getTable("greenVision");
       double x = table.getEntry("blobX").getDouble(-1);
       double y = table.getEntry("blobY").getDouble(-1);
       double size = table.getEntry("blobSize").getDouble(-1);
-      // Use these Variables as needed
+      // Check if it's too close or too far
+      if (size > Constants.optimalSize) chassis.driveBoth(0.5, 2);
+      if (size < Constants.optimalSize) chassis.driveBoth(0.5, 2);
+      // Check if it's too much to the right or too much to the left
+      if (x > 320) chassis.spinLeft(0.5, 0.25);
+      if (x < 320) chassis.spinRight(0.5, 0.25);
+      isComplete[0] = 310 <= x && x <= 330;
+      isComplete[1] = Constants.optimalSize-5 <= x && x <= Constants.optimalSize+5;
     }
 
+  }
+
+  public void orientForward(double size){
+    
   }
 
   // Called once the command ends or is interrupted.
