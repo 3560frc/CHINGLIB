@@ -12,6 +12,7 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 import frc.robot.Constants;
@@ -53,7 +54,11 @@ public class ShootBall extends CommandBase {
     while (!isComplete){
       if (sink.grabFrame(base) == 0) continue;
       grip.process(base);
-      // ONLINE ISH. Idk where the image is stored.
+      NetworkTable table = NetworkTableInstance.getDefault().getTable("greenVision");
+      double x = table.getEntry("blobX").getDouble(-1);
+      double y = table.getEntry("blobY").getDouble(-1);
+      double size = table.getEntry("blobSize").getDouble(-1);
+      // Use these Variables as needed
     }
 
   }
