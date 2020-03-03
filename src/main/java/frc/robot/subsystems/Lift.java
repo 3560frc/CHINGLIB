@@ -17,15 +17,10 @@ public class Lift extends SubsystemBase {
    */
   private final WPI_VictorSPX winchMotor;
   private final Solenoid lifty;
-  private final Button xButton;
 
   public Lift() {
     winchMotor = new WPI_VictorSPX(1); //FIX PORTS                                     
     lifty = new Solenoid(2); 
-  }
-
-  public void extend() {
-    lifty.set(true);
   }
 
   public void liftControl(XboxController controller) {
@@ -57,6 +52,10 @@ public class Lift extends SubsystemBase {
 
     }
 
+  }
+
+  public void extend() {
+    lifty.set(true);
   }
 
   public void retract() {
