@@ -13,6 +13,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 import frc.robot.Constants;
@@ -29,6 +30,7 @@ public class ShootBall extends CommandBase {
   Mat base = new Mat(), output = new Mat();
   Boolean isComplete[] = {false, false};
   NetworkTable nt;
+  XboxController controller;
 
   public ShootBall() {
     shooter = new Shooter();
@@ -66,12 +68,23 @@ public class ShootBall extends CommandBase {
       if (x < 320) chassis.spinRight(0.5, 0.25);
       isComplete[0] = 310 <= x && x <= 330;
       isComplete[1] = Constants.optimalSize-5 <= x && x <= Constants.optimalSize+5;
-      if(controller.getBackButtonPressed()) {
-        
+      if(cancelShoot(controller) ==  true) {
+
         chassis.stop();
 
       }
     }
+
+  }
+
+  public boolean cancelShoot(XboxController controller) {
+
+    if(controller.getBackButtonPressed()) {
+        
+      return true;
+
+    }
+    return false;
 
   }
 
