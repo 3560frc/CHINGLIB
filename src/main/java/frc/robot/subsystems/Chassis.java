@@ -82,6 +82,12 @@ public class Chassis extends SubsystemBase {
     Timer.delay(time);
   }
 
+  public void stop() {
+
+    drive.stopMotor();
+    
+  }
+
   /**
    * @param controller XboxController Object
    */

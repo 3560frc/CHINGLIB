@@ -66,6 +66,11 @@ public class ShootBall extends CommandBase {
       if (x < 320) chassis.spinRight(0.5, 0.25);
       isComplete[0] = 310 <= x && x <= 330;
       isComplete[1] = Constants.optimalSize-5 <= x && x <= Constants.optimalSize+5;
+      if(controller.getBackButtonPressed()) {
+        
+        chassis.stop();
+
+      }
     }
 
   }
