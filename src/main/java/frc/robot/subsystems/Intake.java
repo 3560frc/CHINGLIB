@@ -32,8 +32,8 @@ public class Intake extends SubsystemBase {
    * @param controller Xbox Controller Object
    */
   public void controlIntake(XboxController controller){
-    if (controller.getStartButtonPressed()) setSpeed(0.75);
-    if (controller.getBackButtonPressed()) stop();
+    if (controller.getYButtonPressed()) setSpeed(0.75);
+    else if (!controller.getYButtonPressed()) stop();
   }
 
   public void stop(){
