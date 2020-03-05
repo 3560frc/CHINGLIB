@@ -16,7 +16,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static int portRightFront = 1, portRightBack = 2, portLeftFront = 3, portLeftBack = 4;
+    public static int portRightFront = 1, portRightBack = 2, portLeftFront = 9, portLeftBack = 8;
     public static int rightEncoderA = 1, rightEncoderB = 2, leftEncoderA = 3, leftEncoderB = 4;
     public static int enconderCounts = 2, ticksPerInch = 3;
     public static int portShooterRight = 5, portShooterLeft = 6, portShooterMain = 7, portShooterSlave = 8;

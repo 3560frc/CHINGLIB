@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ShootBall;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
@@ -15,6 +16,7 @@ public class Robot extends TimedRobot {
   XboxController controller;
   Intake intake;
   Shooter shooter;
+  ShootBall shootBall;
 
   @Override
   public void robotInit() {
@@ -23,6 +25,7 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     shooter = new Shooter();
     controller = new XboxController(1);
+    shootBall = new ShootBall();
   }
 
   @Override
@@ -60,8 +63,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     chassis.tankDrive(controller);
-    intake.controlIntake(controller);
-    shooter.teleopShoot(controller);
+    if (controller.getAButtonPressed()) shootBall.execute();
   }
 
   @Override

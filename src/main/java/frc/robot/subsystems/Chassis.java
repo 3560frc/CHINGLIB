@@ -20,7 +20,8 @@ import frc.robot.*;
 public class Chassis extends SubsystemBase {
   
   private final Encoder rightEncoder, leftEncoder;
-  private final WPI_VictorSPX rightFront, rightBack, leftFront, leftBack;
+  private final WPI_VictorSPX rightFront, leftBack, leftFront;
+  private final WPI_TalonSRX rightBack;
   private final NetworkTableInstance instance;
   private final NetworkTable table;
   private final DifferentialDrive drive;
@@ -30,7 +31,7 @@ public class Chassis extends SubsystemBase {
     table = instance.getTable("SmartDashboard");
 
     rightFront = new WPI_VictorSPX(Constants.portRightFront);
-    rightBack = new WPI_VictorSPX(Constants.portRightBack);
+    rightBack = new WPI_TalonSRX(Constants.portRightBack);
     leftFront = new WPI_VictorSPX(Constants.portLeftFront);
     leftBack = new WPI_VictorSPX(Constants.portLeftBack);
 
@@ -39,13 +40,10 @@ public class Chassis extends SubsystemBase {
     leftFront.configFactoryDefault();
     leftBack.configFactoryDefault();
 
-    rightBack.setInverted(true);
-    leftBack.setInverted(true);
+    rightFront.setInverted(true);
+    leftFront.setInverted(true);
 
     drive = new DifferentialDrive(leftFront, rightFront);
-
-    rightBack.follow(rightFront);
-    leftBack.follow(leftFront);
 
     rightEncoder = new Encoder(Constants.rightEncoderA, Constants.rightEncoderB);
     leftEncoder = new Encoder(Constants.leftEncoderA, Constants.leftEncoderB);
@@ -92,7 +90,10 @@ public class Chassis extends SubsystemBase {
    * @param controller XboxController Object
    */
   public void tankDrive(XboxController controller){
-    drive.tankDrive(controller.getY(Hand.kLeft), controller.getY(Hand.kRight));
+    leftFront.set(-controller.getY(Hand.kLeft));
+    rightFront.set(-controller.getY(Hand.kRight));
+    rightBack.set(controller.getY(Hand.kLeft));
+    leftBack.set(controller.getY(Hand.kRight));
   }
 
   public double getRight(){

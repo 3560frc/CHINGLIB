@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.*;
 
@@ -15,11 +17,11 @@ public class Lift extends SubsystemBase {
   /**
    * Creates a new Lift.
    */
-  private final WPI_VictorSPX winchMotor;
   private final Solenoid lifty;
+  private VictorSPX winchMotor;
 
   public Lift() {
-    winchMotor = new WPI_VictorSPX(1); //FIX PORTS                                     
+    winchMotor = new VictorSPX(1); //FIX PORTS                                     
     lifty = new Solenoid(2); 
   }
 
@@ -57,20 +59,20 @@ public class Lift extends SubsystemBase {
   }
 
   public void timedPull(double time) {
-    winchMotor.set(1);
+    winchMotor.set(ControlMode.PercentOutput, 1);
     Timer.delay(time);
-    winchMotor.set(0);
+    winchMotor.set(ControlMode.PercentOutput, 0);
   }
 
   public void retractWinch() {
 
-    winchMotor.set(1);
+    winchMotor.set(ControlMode.PercentOutput, 1);
 
   }
 
   public void stopWinch() {
 
-    winchMotor.set(0);
+    winchMotor.set(ControlMode.PercentOutput, 0);
     
   }
 

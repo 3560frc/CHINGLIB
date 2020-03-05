@@ -14,6 +14,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 import frc.robot.Constants;
@@ -39,6 +40,8 @@ public class ShootBall extends CommandBase {
     camera = CameraServer.getInstance().startAutomaticCapture();
     camera.setResolution(640, 480);
     sink = CameraServer.getInstance().getVideo();
+    outputStream = CameraServer.getInstance().putVideo("Shooter CAM", 640, 480);
+    controller = new XboxController(0);
 
     addRequirements(shooter);
     addRequirements(chassis);
@@ -68,23 +71,8 @@ public class ShootBall extends CommandBase {
       if (x < 320) chassis.spinRight(0.5, 0.25);
       isComplete[0] = 310 <= x && x <= 330;
       isComplete[1] = Constants.optimalSize-5 <= x && x <= Constants.optimalSize+5;
-      if(cancelShoot(controller) ==  true) {
-
-        chassis.stop();
-
-      }
+      if (controller.getBackButtonPressed()) chassis.stop();
     }
-
-  }
-
-  public boolean cancelShoot(XboxController controller) {
-
-    if(controller.getBackButtonPressed()) {
-        
-      return true;
-
-    }
-    return false;
 
   }
 

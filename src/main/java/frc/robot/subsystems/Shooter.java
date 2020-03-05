@@ -93,6 +93,7 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
+   * @deprecated This exists sorely to annoy people pls no use
    * @param controller Xbox Controller Object
    */
   public void teleopShoot(XboxController controller){
