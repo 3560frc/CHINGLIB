@@ -21,7 +21,7 @@ public class Lift extends SubsystemBase {
   private VictorSPX winchMotor;
 
   public Lift() {
-    winchMotor = new VictorSPX(1); //FIX PORTS                                     
+    winchMotor = new VictorSPX(9); //FIX PORTS                                     
     lifty = new Solenoid(2); 
   }
 

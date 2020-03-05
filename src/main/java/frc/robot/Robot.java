@@ -1,6 +1,9 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.*;
+
+import org.opencv.core.Core;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,6 +19,7 @@ public class Robot extends TimedRobot {
   XboxController controller;
   Intake intake;
   Shooter shooter;
+  Lift lift;
   ShootBall shootBall;
 
   @Override
@@ -25,7 +29,9 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     shooter = new Shooter();
     controller = new XboxController(1);
+    lift = new Lift();
     shootBall = new ShootBall();
+    System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
   }
 
   @Override
@@ -51,6 +57,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    shootBall.execute();
   }
 
   @Override
