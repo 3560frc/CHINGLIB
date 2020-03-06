@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.can.*;
@@ -24,7 +23,6 @@ public class Chassis extends SubsystemBase {
   private final WPI_TalonSRX rightBack;
   private final NetworkTableInstance instance;
   private final NetworkTable table;
-  private final DifferentialDrive drive;
 
   public Chassis() {
     instance = NetworkTableInstance.getDefault();
@@ -43,10 +41,31 @@ public class Chassis extends SubsystemBase {
     rightFront.setInverted(true);
     leftFront.setInverted(true);
 
-    drive = new DifferentialDrive(leftFront, rightFront);
 
     rightEncoder = new Encoder(Constants.rightEncoderA, Constants.rightEncoderB);
     leftEncoder = new Encoder(Constants.leftEncoderA, Constants.leftEncoderB);
+
+  }
+
+  /**
+   * @param speed PWM Speed Value
+   **/
+
+  public void controlLeft(double speed) {
+
+    leftFront.set(speed);
+    leftBack.set(speed);
+
+  }
+
+  /**
+   * @param speed PWM Speed Value
+   **/
+
+  public void controlRight(double speed) {
+
+    rightFront.set(speed);
+    rightBack.set(speed);
 
   }
 
@@ -57,7 +76,8 @@ public class Chassis extends SubsystemBase {
   public void driveBoth(double speed, double distance){
     double currentTicks = (getLeft() + getRight()) / 2;
     while (Math.abs((distance * Constants.ticksPerInch) - currentTicks) < 1){
-      drive.tankDrive(speed, speed);
+      leftFront.set(speed);
+      rightFront.set(speed);
       currentTicks = (getLeft() + getRight()) / 2;
     }
   }
@@ -67,7 +87,8 @@ public class Chassis extends SubsystemBase {
    * @param time Time the robot spins
    */
   public void spinLeft(double speed, double time){
-    drive.tankDrive(speed, -speed);
+    leftFront.set(-speed);
+    rightFront.set(speed);
     Timer.delay(time);
   }
 
@@ -76,13 +97,15 @@ public class Chassis extends SubsystemBase {
    * @param time Time the robot spins
    */
   public void spinRight(double speed, double time){
-    drive.tankDrive(-speed, speed);
+    leftFront.set(speed);
+    rightFront.set(-speed);
     Timer.delay(time);
   }
 
   public void stop() {
 
-    drive.stopMotor();
+    leftFront.stopMotor();
+    rightFront.stopMotor();
     
   }
 
