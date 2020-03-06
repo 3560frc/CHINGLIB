@@ -24,6 +24,7 @@ public class Chassis extends SubsystemBase {
   private final NetworkTableInstance instance;
   private final NetworkTable table;
 
+
   public Chassis() {
     instance = NetworkTableInstance.getDefault();
     table = instance.getTable("SmartDashboard");
@@ -109,10 +110,10 @@ public class Chassis extends SubsystemBase {
    * @param controller XboxController Object
    */
   public void tankDrive(XboxController controller){
-    leftFront.set(-controller.getY(Hand.kLeft));
-    rightFront.set(-controller.getY(Hand.kRight));
-    rightBack.set(controller.getY(Hand.kLeft));
-    leftBack.set(controller.getY(Hand.kRight));
+    leftFront.set(-controller.getRawAxis(2));
+    rightFront.set(-controller.getRawAxis(5));
+    rightBack.set(controller.getRawAxis(5));
+    leftBack.set(controller.getRawAxis(2));
   }
 
   public double getRight(){

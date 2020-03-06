@@ -69,8 +69,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    chassis.tankDrive(controller);
-    if (controller.getAButtonPressed()) shootBall.execute();
+    //chassis.tankDrive(controller);
+    //if (controller.getAButtonPressed()) shootBall.execute();
+    chassis.driveBoth(0.25, 10);
   }
 
   @Override
