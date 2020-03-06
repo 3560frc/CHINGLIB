@@ -52,10 +52,8 @@ public class Chassis extends SubsystemBase {
    **/
 
   public void controlLeft(double speed) {
-
     leftFront.set(speed);
     leftBack.set(speed);
-
   }
 
   /**
@@ -63,10 +61,8 @@ public class Chassis extends SubsystemBase {
    **/
 
   public void controlRight(double speed) {
-
     rightFront.set(speed);
     rightBack.set(speed);
-
   }
 
   /**
@@ -76,8 +72,8 @@ public class Chassis extends SubsystemBase {
   public void driveBoth(double speed, double distance){
     double currentTicks = (getLeft() + getRight()) / 2;
     while (Math.abs((distance * Constants.ticksPerInch) - currentTicks) < 1){
-      leftFront.set(speed);
-      rightFront.set(speed);
+      controlLeft(speed);
+      controlRight(speed);
       currentTicks = (getLeft() + getRight()) / 2;
     }
   }
@@ -87,8 +83,8 @@ public class Chassis extends SubsystemBase {
    * @param time Time the robot spins
    */
   public void spinLeft(double speed, double time){
-    leftFront.set(-speed);
-    rightFront.set(speed);
+    controlLeft(-speed);
+    controlRight(speed);
     Timer.delay(time);
   }
 
@@ -97,16 +93,16 @@ public class Chassis extends SubsystemBase {
    * @param time Time the robot spins
    */
   public void spinRight(double speed, double time){
-    leftFront.set(speed);
-    rightFront.set(-speed);
+    controlLeft(speed);
+    controlRight(-speed);
     Timer.delay(time);
   }
 
   public void stop() {
-
     leftFront.stopMotor();
     rightFront.stopMotor();
-    
+    leftBack.stopMotor();
+    rightBack.stopMotor();
   }
 
   /**
